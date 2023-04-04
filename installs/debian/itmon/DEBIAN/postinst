@@ -1,10 +1,16 @@
 #!/bin/bash
 set -e
 
-
-
 cp ../usr/lib/main.py /usr/lib/itmon.reporter.py
 chmod +x /usr/lib/itmon.reporter.py
+
+cp ../usr/lib/requirements.txt /usr/lib/requirements.txt
+
+cd /usr/lib
+
+python -m venv itmon-env
+source itmon-env/bin/activate
+pip install -r requirements.txt
 
 
 # Enable and start the service
