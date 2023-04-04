@@ -1,0 +1,1 @@
+source itmon-env/bin/activate && /usr/bin/itmon.reporter.py

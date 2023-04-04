@@ -5,7 +5,7 @@ After=network.target
 [Service]
 Type=simple
 User=root
-ExecStart=/usr/bin/itmon.reporter.py
+ExecStart=/usr/bin/itmon.sh
 Restart=always
 
 [Install]
