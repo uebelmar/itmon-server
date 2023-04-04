@@ -1,10 +1,13 @@
 #!/bin/bash
 set -e
 
+
+
+cp ../usr/lib/main.py /usr/lib/itmon.reporter.py
+chmod +x /usr/lib/itmon.reporter.py
+
+
 # Enable and start the service
 systemctl enable itmon.service
 systemctl start itmon.service
-
-cp ../main.py /usr/lib/itmon.reporter.py
-chmod +x /usr/lib/itmon.reporter.py
 exit 0
