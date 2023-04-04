@@ -62,7 +62,7 @@ if __name__ == '__main__':
         os.path.join(os.getcwd(), os.path.dirname(__file__)))
     filename = os.path.join(__location__, 'itmon.config.json')
     if os.path.exists(filename):
-        with open('itmon.config.json', 'r') as f:
+        with open(filename, 'r') as f:
             config = json.load(f)
     else:
         print("Config-File does not exist.")
