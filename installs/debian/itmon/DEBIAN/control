@@ -3,5 +3,5 @@ Version: 1.0
 Architecture: all
 Maintainer: Markus Übeleis <you@example.com>
 Description: IT-Mon Reporter
-Depends: python3, systemd
+Depends: python3, systemd, python3-venv
 
