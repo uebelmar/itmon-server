@@ -1,1 +1,1 @@
-source itmon-env/bin/activate && /usr/bin/itmon.reporter.py
+source itmon-env/bin/activate && python3 /usr/bin/itmon.reporter.py
