@@ -1,4 +1,4 @@
 cp ../../main.py ./itmon/usr/lib/itmon.reporter.py
-cp ../../config.json ./itmon/usr/lib/config.json
+cp ../../itmon.config.json ./itmon/usr/lib/itmon.config.json
 dpkg-deb --build itmon
 dpkg -i itmon.deb
