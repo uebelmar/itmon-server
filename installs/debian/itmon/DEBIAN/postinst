@@ -5,5 +5,6 @@ set -e
 systemctl enable itmon.service
 systemctl start itmon.service
 
-cp ../../../../main.py /usr/lib/itmon.reporter.py
+cp ../main.py /usr/lib/itmon.reporter.py
+chmod +x /usr/lib/itmon.reporter.py
 exit 0
