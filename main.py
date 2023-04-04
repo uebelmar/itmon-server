@@ -58,7 +58,9 @@ def do():
 
 
 if __name__ == '__main__':
-    filename = "config.json"
+    __location__ = os.path.realpath(
+        os.path.join(os.getcwd(), os.path.dirname(__file__)))
+    filename = os.path.join(__location__, 'config.json')
     if os.path.exists(filename):
         with open('config.json', 'r') as f:
             config = json.load(f)
