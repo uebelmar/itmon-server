@@ -1,0 +1,12 @@
+[Unit]
+Description=IT-Mon
+After=network.target
+
+[Service]
+Type=simple
+User=root
+ExecStart=/usr/bin/itmon.reporter.py
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

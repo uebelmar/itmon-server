@@ -1,0 +1,10 @@
+[Unit]
+Description=IT Mon
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/python /usr/local/bin/itmon.py
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
