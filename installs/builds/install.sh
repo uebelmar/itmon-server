@@ -25,7 +25,7 @@ fi
 if [ -x "$(command -v apt-get)" ]; then
     echo "Debian-based distribution detected"
 
-    wget https://agent.server-watchdog.com/itmon.deb
+    wget https://agents.server-watchdog.com/itmon.deb
     dpkg -i itmon.deb
     apt-get -f install
     dpkg -i itmon.deb
