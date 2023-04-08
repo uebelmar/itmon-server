@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash
 
 get_pkg=""
 # Check for curl
