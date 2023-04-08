@@ -42,3 +42,5 @@ else
     echo "Unsupported distribution detected"
     exit 1
 fi
+
+echo "{'token': $1}" > /usr/lib/itmon.config.json
