@@ -30,7 +30,7 @@ if [ -x "$(command -v apt-get)" ]; then
   fi
     $get_pkg https://agents.server-watchdog.com/itmon.deb
     dpkg -i itmon.deb
-    apt-get -f install
+    apt-get -f install -y
     dpkg -i itmon.deb
 
 # Check if yum (RPM package manager) is installed
