@@ -1,0 +1,6 @@
+# Stop the service
+systemctl stop itmon
+
+# Remove the service
+systemctl disable itmon
+rm /usr/lib/systemd/system/itmon.service
