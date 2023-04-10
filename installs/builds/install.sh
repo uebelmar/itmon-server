@@ -47,4 +47,4 @@ else
     exit 1
 fi
 
-echo "{'token': '$1','interval': 20, 'apiUrl: 'https://api.server-watchdog.com/v1/'}" > /usr/lib/itmon/itmon.config.json
+echo "{\"token\": \"$1\",\"interval\": 20, \"apiUrl\": \"https://api.server-watchdog.com/v1/\"}" > /usr/lib/itmon/itmon.config.json
