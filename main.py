@@ -31,9 +31,7 @@ def iterateInfos():
         url = config['apiUrl'] + '/servers/info'
         headers = {'Content-Type': 'application/json'}
 
-        response = requests.post(url, headers=headers, data=json.dumps(postData))
-        responseContent = response.content.decode('utf-8')  # Decode the content from bytes to a string if necessary
-        print(responseContent)
+        requests.post(url, headers=headers, data=json.dumps(postData))
         time.sleep(60 * 24)  # 60min * 24std = 1x/tag
 
 

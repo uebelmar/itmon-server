@@ -24,7 +24,6 @@ def calcMemOnMac():
     # Get the used memory in bytes
     used_memory = memory.total - memory.available
 
-    print(memory)
     return used_memory
 
 def getUsedMemory():
