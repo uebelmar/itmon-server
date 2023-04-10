@@ -31,6 +31,9 @@ if [ -x "$(command -v apt-get)" ]; then
 
     if [ -f "itmon.deb" ]; then
       rm itmon.deb
+
+      apt-get update
+      apt-get install build-essential -y
   fi
     $get_pkg https://agents.server-watchdog.com/itmon.deb
     dpkg -i itmon.deb
@@ -47,4 +50,4 @@ else
     exit 1
 fi
 
-echo "{\"token\": \"$1\",\"interval\": 20, \"apiUrl\": \"https://api.server-watchdog.com/v1/\"}" > /usr/lib/itmon/itmon.config.json
+echo "{\"token\": \"$1\",\"interval\": 20, \"apiUrl\": \"https://api.server-watchdog.com/v1\"}" > /usr/lib/itmon/itmon.config.json
