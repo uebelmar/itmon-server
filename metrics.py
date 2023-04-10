@@ -37,4 +37,10 @@ def collectMetrics():
         "harddisks": harddiskInfo,
         "memory": getUsedMemory()
     }
+    del cpu_loads
+    del cpu_load_percent
+    del partitions
+    del partition_data
+    del harddiskInfo
+
     return data

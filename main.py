@@ -47,6 +47,8 @@ def iterateMetrics():
             "token": config['token'],
             "data": data
         })
+        if "localhost" in config and config['localhost'] == True:
+            print(postData)
 
         # send to server
         url = config['apiUrl'] + '/servers/metrics'
