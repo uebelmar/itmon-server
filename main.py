@@ -5,7 +5,6 @@ import os
 import threading
 import time
 
-
 import requests
 
 from info import collectInfos
@@ -27,7 +26,6 @@ def iterateInfos():
             "token": config['token'],
             "data": data
         })
-        print(postData)
 
         # send to server
         url = config['apiUrl'] + '/servers/info'
@@ -37,9 +35,6 @@ def iterateInfos():
         responseContent = response.content.decode('utf-8')  # Decode the content from bytes to a string if necessary
         print(responseContent)
         time.sleep(60 * 24)  # 60min * 24std = 1x/tag
-
-
-
 
 
 def iterateMetrics():
@@ -54,24 +49,14 @@ def iterateMetrics():
             "token": config['token'],
             "data": data
         })
-        print(postData)
 
         # send to server
         url = config['apiUrl'] + '/servers/metrics'
         headers = {'Content-Type': 'application/json'}
-
-        start_time = time.time()
-
-        response = requests.post(url, headers=headers, data=json.dumps(postData))
-        end_time = time.time()
-        print("Response time for metrics:", end_time - start_time)
-
-        responseContent = response.content.decode('utf-8')  # Decode the content from bytes to a string if necessary
-        print(responseContent)
+        requests.post(url, headers=headers, data=json.dumps(postData))
+        del data
+        del postData
         time.sleep(config['interval'])
-
-
-
 
 
 if __name__ == '__main__':
