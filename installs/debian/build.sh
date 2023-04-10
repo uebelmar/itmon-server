@@ -1,5 +1,7 @@
 #!/bin/bash -e
-mkdir ./itmon/usr/lib/itmon
+if [ ! -d "./itmon/usr/lib/itmon" ]; then
+  mkdir ./itmon/usr/lib/itmon
+fi
 cp ../../*.py ./itmon/usr/lib/itmon/
 mv ./itmon/usr/lib/itmon/main.py ./itmon/usr/lib/itmon/itmon.reporter.py
 
