@@ -1,72 +1,99 @@
 # This is a sample Python script.
-import time
-import psutil
 import json
 import os
+
+import threading
+import time
+
+
+import requests
+
+from info import collectInfos
+from metrics import collectMetrics
 
 
 # Press ⌃R to execute it or replace it with your code.
 # Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
 
+def iterateInfos():
+    while True:
+        data = collectInfos()
+        # Get the current time in seconds since the Epoch
+        current_utc_time = time.time()
 
-def do():
-    # Get CPU load as a percentage over the last 5 seconds
-    cpu_loads = psutil.cpu_percent(percpu=True)
-    cpu_load_percent = psutil.cpu_percent()
-
-    # harddisk
-
-    partitions = psutil.disk_partitions()
-
-    # create a list to hold the JSON objects for each partition
-    partition_data = []
-
-    # iterate over each partition and add its data to the list
-    for partition in partitions:
-        usage = psutil.disk_usage(partition.mountpoint)
-        partition_data.append({
-            "mountpoint": partition.mountpoint,
-            "total": usage.total,
-            "available": usage.free
+        # Convert the current time to a MySQL datetime format
+        postData = ({
+            "datetime": time.strftime('%Y-%m-%d %H:%M:%S', time.gmtime(current_utc_time)),
+            "token": config['token'],
+            "data": data
         })
+        print(postData)
 
-    # convert the list of JSON objects to a JSON array
-    harddiskInfo = json.dumps(partition_data)
+        # send to server
+        url = config['apiUrl'] + '/servers/info'
+        headers = {'Content-Type': 'application/json'}
 
-    # memory
-    memory = psutil.virtual_memory()
+        response = requests.post(url, headers=headers, data=json.dumps(postData))
+        responseContent = response.content.decode('utf-8')  # Decode the content from bytes to a string if necessary
+        print(responseContent)
+        time.sleep(60 * 24)  # 60min * 24std = 1x/tag
 
-    # Get the total memory in bytes
-    total_memory = memory.total
 
-    # Get the used memory in bytes
-    used_memory = memory.used
 
-    data = {
-        "cpu": {
-            "cores": (cpu_loads),
-            "total": cpu_load_percent
-        },
-        "harddisks": harddiskInfo,
-        "memory": {
-            "total": total_memory,
-            "used_memory": used_memory
 
-        }
-    }
-    print(data)
+
+def iterateMetrics():
+    while True:
+        data = collectMetrics()
+        # Get the current time in seconds since the Epoch
+        current_utc_time = time.time()
+
+        # Convert the current time to a MySQL datetime format
+        postData = ({
+            "datetime": time.strftime('%Y-%m-%d %H:%M:%S', time.gmtime(current_utc_time)),
+            "token": config['token'],
+            "data": data
+        })
+        print(postData)
+
+        # send to server
+        url = config['apiUrl'] + '/servers/metrics'
+        headers = {'Content-Type': 'application/json'}
+
+        start_time = time.time()
+
+        response = requests.post(url, headers=headers, data=json.dumps(postData))
+        end_time = time.time()
+        print("Response time for metrics:", end_time - start_time)
+
+        responseContent = response.content.decode('utf-8')  # Decode the content from bytes to a string if necessary
+        print(responseContent)
+        time.sleep(config['interval'])
+
+
+
 
 
 if __name__ == '__main__':
     __location__ = os.path.realpath(
         os.path.join(os.getcwd(), os.path.dirname(__file__)))
-    filename = os.path.join(__location__, 'itmon.config.json')
+
+    # check if there is a config for local environment
+    filename = os.path.join(__location__, 'itmon.config.localhost.json')
     if os.path.exists(filename):
         with open(filename, 'r') as f:
             config = json.load(f)
+
     else:
-        print("Config-File does not exist.")
-        exit()
-    while True:
-        do()
-        time.sleep(config['interval'])
+        filename = os.path.join(__location__, 'itmon.config.json')
+        if os.path.exists(filename):
+            with open(filename, 'r') as f:
+                config = json.load(f)
+        else:
+            print("Config-File does not exist.")
+            exit()
+    threadIterateMetrics = threading.Thread(target=iterateMetrics)
+    threadIterateMetrics.start()
+
+    threadIterateInfos = threading.Thread(target=iterateInfos)
+    threadIterateInfos.start()

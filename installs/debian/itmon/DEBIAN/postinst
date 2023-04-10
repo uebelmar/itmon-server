@@ -4,7 +4,7 @@ set -e
 #chmod +x /usr/lib/itmon.reporter.py
 
 
-cd /usr/lib
+cd /usr/lib/itmon
 chmod 777 itmon.sh
 python3 -m venv itmon-env
 source itmon-env/bin/activate

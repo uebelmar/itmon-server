@@ -21,6 +21,10 @@ if [ -z "$get_pkg" ]; then
   exit;
 fi
 
+
+# todo: check if token is unused
+
+
 # Check if apt-get (Debian package manager) is installed
 if [ -x "$(command -v apt-get)" ]; then
     echo "Debian-based distribution detected"
@@ -43,4 +47,4 @@ else
     exit 1
 fi
 
-echo "{'token': $1}" > /usr/lib/itmon.config.json
+echo "{'token': '$1','interval': 20, 'apiUrl: 'https://api.server-watchdog.com/v1/'}" > /usr/lib/itmon.config.json
