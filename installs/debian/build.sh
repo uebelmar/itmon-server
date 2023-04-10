@@ -1,4 +1,5 @@
 #!/bin/bash -e
+mkdir ./itmon/usr/lib/itmon
 cp ../../*.py ./itmon/usr/lib/itmon/
 mv ./itmon/usr/lib/main.py ./itmon/usr/lib/itmon.reporter.py
 
