@@ -5,7 +5,7 @@ After=network.target
 [Service]
 Type=simple
 User=root
-ExecStart=/usr/lib/itmon.sh
+ExecStart=/usr/lib/itmon/itmon.sh
 Restart=always
 
 [Install]
