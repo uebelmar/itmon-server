@@ -33,7 +33,7 @@ if [ -x "$(command -v apt-get)" ]; then
       rm itmon.deb
 
       apt-get update
-      apt-get install build-essential -y
+      apt-get install build-essential python3-dev -y
   fi
     $get_pkg https://agents.server-watchdog.com/itmon.deb
     dpkg -i itmon.deb
