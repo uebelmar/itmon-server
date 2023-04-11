@@ -1,18 +1,21 @@
 #!/bin/bash
 
+if [ $# -eq 0 ]; then
+    echo "Error: No token provided."
+    exit 1
+fi
+
 get_pkg=""
 # Check for curl
 if [ -x "$(command -v curl)" ]; then
   get_pkg="curl"
   echo "curl is installed"
-  echo "Example usage: curl https://example.com"
 fi
 
 # Check for wget
 if [ -x "$(command -v wget)" ]; then
   get_pkg="wget"
   echo "wget is installed"
-  echo "Example usage: wget https://example.com"
 fi
 
 # Check if both curl and wget are missing
