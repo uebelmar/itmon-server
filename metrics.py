@@ -1,5 +1,4 @@
 import psutil
-
 from memory import getUsedMemory
 
 

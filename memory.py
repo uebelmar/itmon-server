@@ -1,9 +1,5 @@
-import os
 import platform
-import subprocess
 import psutil
-import re
-import subprocess
 
 
 def calcMemOnLinux():
