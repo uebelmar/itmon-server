@@ -20,7 +20,8 @@ def collectMetrics():
         partition_data.append({
             "mountpoint": partition.mountpoint,
             "total": usage.total,
-            "available": usage.free
+            "available": usage.free,
+            "used": usage.used
         })
 
     # convert the list of JSON objects to a JSON array
