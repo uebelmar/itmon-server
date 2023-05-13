@@ -14,6 +14,8 @@ import cpuinfo
 from info import collectInfos
 from metrics import collectMetrics
 
+from multiprocessing import freeze_support
+freeze_support()
 
 def check_response(response):
     if response.status_code != 200:
@@ -56,7 +58,7 @@ def iterateMetrics():
             "token": config['token'],
             "data": data
         })
-        if "localhost" in config and config['localhost'] == True:
+        if "debug" in config and config['debug'] == True:
             print(postData)
 
         # send to server
@@ -101,7 +103,8 @@ if __name__ == '__main__':
         print("token not supplied in config.")
         exit()
 
-
+    from multiprocessing import freeze_support
+    freeze_support()
     threadIterateMetrics = threading.Thread(target=iterateMetrics)
     threadIterateMetrics.start()
 
