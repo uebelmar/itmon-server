@@ -26,6 +26,7 @@ def check_response(response):
 
 
 def iterateInfos():
+    global config
     while True:
         data = collectInfos()
         # Get the current time in seconds since the Epoch
@@ -49,6 +50,8 @@ def iterateInfos():
 
 
 def iterateMetrics():
+    global config
+
     while True:
         data = collectMetrics()
         # Get the current time in seconds since the Epoch
@@ -74,7 +77,7 @@ def iterateMetrics():
         time.sleep(20)
 
 
-if __name__ == '__main__':
+def start():
     if getattr(sys, 'frozen', False):
         # If the application is run as a bundle, the PyInstaller bootloader
         # extends the sys module by a flag frozen=True and sets the app
