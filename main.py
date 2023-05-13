@@ -79,7 +79,7 @@ if __name__ == '__main__':
             with open(filename, 'r') as f:
                 config = json.load(f)
         else:
-            print("Config-File does not exist.")
+            print("Config-File does not exist in "+__location__)
             exit()
     threadIterateMetrics = threading.Thread(target=iterateMetrics)
     threadIterateMetrics.start()
