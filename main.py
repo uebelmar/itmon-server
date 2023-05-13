@@ -103,8 +103,7 @@ if __name__ == '__main__':
         print("token not supplied in config.")
         exit()
 
-    from multiprocessing import freeze_support
-    freeze_support()
+
     threadIterateMetrics = threading.Thread(target=iterateMetrics)
     threadIterateMetrics.start()
 
