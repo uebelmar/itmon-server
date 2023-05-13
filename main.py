@@ -1,6 +1,7 @@
 # This is a sample Python script.
 import json
 import os
+import sys
 import threading
 import time
 import requests
@@ -69,23 +70,38 @@ def iterateMetrics():
 
 
 if __name__ == '__main__':
-    __location__ = os.path.realpath(
-        os.path.join(os.getcwd(), os.path.dirname(__file__)))
+    if getattr(sys, 'frozen', False):
+        # If the application is run as a bundle, the PyInstaller bootloader
+        # extends the sys module by a flag frozen=True and sets the app
+        # path into variable _MEIPASS'.
+        application_path = os.path.dirname(sys.executable)
+    else:
+        application_path = os.path.dirname(os.path.abspath(__file__))
 
     # check if there is a config for local environment
-    filename = os.path.join(__location__, 'itmon.config.localhost.json')
+    filename = os.path.join(application_path, 'itmon.config.localhost.json')
     if os.path.exists(filename):
         with open(filename, 'r') as f:
             config = json.load(f)
 
     else:
-        filename = os.path.join(__location__, 'itmon.config.json')
+        filename = os.path.join(application_path, 'itmon.config.json')
         if os.path.exists(filename):
             with open(filename, 'r') as f:
                 config = json.load(f)
         else:
-            print("Config-File does not exist in "+__location__)
+            print("Config-File does not exist in "+application_path)
             exit()
+
+#check if token is in config
+    if 'apiUrl' not in config:
+        print("apiUrl not supplied in config.")
+        exit()
+    if 'token' not in config:
+        print("token not supplied in config.")
+        exit()
+
+
     threadIterateMetrics = threading.Thread(target=iterateMetrics)
     threadIterateMetrics.start()
 
