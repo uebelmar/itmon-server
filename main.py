@@ -5,6 +5,11 @@ import threading
 import time
 import requests
 
+#pyinstaller need this imports here...
+import netifaces
+import psutil
+import cpuinfo
+
 from info import collectInfos
 from metrics import collectMetrics
 
