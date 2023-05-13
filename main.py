@@ -6,7 +6,7 @@ import threading
 import time
 import requests
 
-#pyinstaller need this imports here...
+# pyinstaller need this imports here...
 import netifaces
 import psutil
 import cpuinfo
@@ -15,12 +15,15 @@ from info import collectInfos
 from metrics import collectMetrics
 
 from multiprocessing import freeze_support
+
 freeze_support()
 
+
 def check_response(response):
-    if response.status_code != 200:
-        print(f"Error: Received status code {response.status_code} instead of 200.")
-        print(f"Server response: {response.text}")
+    if response.status_code != 200 or ("debug" in config and config['debug'] is True):
+        print(f"Server response code: {response.status_code}")
+        print(f"Server response text: {response.text}")
+
 
 def iterateInfos():
     while True:
@@ -58,7 +61,7 @@ def iterateMetrics():
             "token": config['token'],
             "data": data
         })
-        if "debug" in config and config['debug'] == True:
+        if "debug" in config and config['debug'] is True:
             print(postData)
 
         # send to server
@@ -92,17 +95,16 @@ if __name__ == '__main__':
             with open(filename, 'r') as f:
                 config = json.load(f)
         else:
-            print("Config-File does not exist in "+application_path)
+            print("Config-File does not exist in " + application_path)
             exit()
 
-#check if token is in config
+    # check if token is in config
     if 'apiUrl' not in config:
         print("apiUrl not supplied in config.")
         exit()
     if 'token' not in config:
         print("token not supplied in config.")
         exit()
-
 
     threadIterateMetrics = threading.Thread(target=iterateMetrics)
     threadIterateMetrics.start()
