@@ -2,6 +2,38 @@ import psutil
 from memory import getUsedMemory
 
 
+import psutil
+
+def get_process_info():
+    process_list = []
+
+    for process in psutil.process_iter(['pid', 'name', 'memory_info', 'cpu_percent']):
+        try:
+            pid = process.info.get('pid', None)
+            name = process.info.get('name', None)
+            mem_info = process.info.get('memory_info', None)
+            cpu_percent = process.info.get('cpu_percent', None)
+
+            if mem_info is not None:
+                mem_usage_mib = mem_info.rss / (1024 * 1024)
+            else:
+                mem_usage_mib = None
+
+            process_info = {
+                "PID": pid,
+                "Name": name,
+                "Memory Usage (MiB)": f"{mem_usage_mib:.2f}" if mem_usage_mib is not None else None,
+                "CPU Usage (%)": cpu_percent
+            }
+            process_list.append(process_info)
+
+        except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
+            pass
+
+    return process_list
+
+
+
 def collectMetrics():
     # Get CPU load as a percentage over the last 5 seconds
     cpu_loads = psutil.cpu_percent(percpu=True)
@@ -30,6 +62,7 @@ def collectMetrics():
     # memory
 
     data = {
+      #  "processes": get_process_info(),
         "cpu": {
             "cores": (cpu_loads),
             "total": cpu_load_percent

@@ -1,18 +1,18 @@
 # This is a sample Python script.
 import json
 import os
-
 import threading
 import time
-
 import requests
 
 from info import collectInfos
 from metrics import collectMetrics
 
 
-# Press ⌃R to execute it or replace it with your code.
-# Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
+def check_response(response):
+    if response.status_code != 200:
+        print(f"Error: Received status code {response.status_code} instead of 200.")
+        print(f"Server response: {response.text}")
 
 def iterateInfos():
     while True:
@@ -22,6 +22,7 @@ def iterateInfos():
 
         # Convert the current time to a MySQL datetime format
         postData = ({
+            "agent_version": 1.0,
             "datetime": time.strftime('%Y-%m-%d %H:%M:%S', time.gmtime(current_utc_time)),
             "token": config['token'],
             "data": data
@@ -29,9 +30,10 @@ def iterateInfos():
 
         # send to server
         url = config['apiUrl'] + '/servers/info'
-        headers = {'Content-Type': 'application/json'}
+        headers = {'Content-Type': 'application/json', 'Accept-Encoding': 'gzip'}
 
-        requests.post(url, headers=headers, data=json.dumps(postData))
+        response = requests.post(url, headers=headers, data=json.dumps(postData))
+        check_response(response)
         time.sleep(60 * 24)  # 60min * 24std = 1x/tag
 
 
@@ -43,6 +45,7 @@ def iterateMetrics():
 
         # Convert the current time to a MySQL datetime format
         postData = ({
+            "agent_version": 1.0,
             "datetime": time.strftime('%Y-%m-%d %H:%M:%S', time.gmtime(current_utc_time)),
             "token": config['token'],
             "data": data
@@ -53,7 +56,8 @@ def iterateMetrics():
         # send to server
         url = config['apiUrl'] + '/servers/metrics'
         headers = {'Content-Type': 'application/json'}
-        requests.post(url, headers=headers, data=json.dumps(postData))
+        response = requests.post(url, headers=headers, data=json.dumps(postData))
+        check_response(response)
         del data
         del postData
         time.sleep(config['interval'])
