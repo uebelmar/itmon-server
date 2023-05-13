@@ -66,7 +66,7 @@ def iterateMetrics():
         check_response(response)
         del data
         del postData
-        time.sleep(config['interval'])
+        time.sleep(20)
 
 
 if __name__ == '__main__':
