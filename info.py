@@ -33,20 +33,22 @@ def collectInfos():
 
     # Get the number of sockets and CPUs
     num_sockets = psutil.cpu_count(logical=False)
-    cpu_info = psutil.cpu_freq(percpu=True)
-
-    # Create a list to store the details of each CPU
     cpu_list = []
 
-    # Loop through each CPU and get its details
-    info = cpuinfo.get_cpu_info()
-    for cpu in cpu_info:
-        cpu_dict = {}
-        cpu_dict["clock_speed"] = cpu.current
-        cpu_dict["name"] = info["brand_raw"]
-        cpu_dict["model"] = info["model"]
 
-        cpu_list.append(cpu_dict)
+    if platform.system() != "Darwin": #cpu_freq is not supported on macos
+        cpu_info = psutil.cpu_freq(percpu=True)
+
+
+        # Loop through each CPU and get its details
+        info = cpuinfo.get_cpu_info()
+        for cpu in cpu_info:
+            cpu_dict = {}
+            cpu_dict["clock_speed"] = cpu.current
+            cpu_dict["name"] = info["brand_raw"]
+            cpu_dict["model"] = info["model"]
+
+            cpu_list.append(cpu_dict)
 
     return {"network": interface_list,
             "platform": {

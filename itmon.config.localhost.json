@@ -1,6 +1,5 @@
 {
-  "localhost": true,
+  "debug": true,
   "apiUrl": "http://server-watchdog.local/v1",
-  "token": "rmiYGiRP2nA_U72E56aZH9aXfIiHr0-XUibl3075nLOkp1yCA56W2AGgvZggq-b2pQT0fODgABkPTpWWXiqNWvNW3QLO",
-  "interval": 5
+  "token": "rmiYGiRP2nA_U72E56aZH9aXfIiHr0-XUibl3075nLOkp1yCA56W2AGgvZggq-b2pQT0fODgABkPTpWWXiqNWvNW3QLO"
 }
