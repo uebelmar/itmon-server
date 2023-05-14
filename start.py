@@ -102,18 +102,21 @@ def start():
                 jsonConfig = json.load(f)
         else:
             print("Config-File does not exist in " + application_path)
-            exit()
+            exit(123)
 
     # check if token is in jsonConfig
     if 'apiUrl' not in jsonConfig:
         print("apiUrl not supplied in config.")
-        exit()
+        exit(4566)
     if 'token' not in jsonConfig:
         print("token not supplied in config.")
-        exit()
+        exit(789)
 
     threadIterateMetrics = threading.Thread(target=iterateMetrics)
     threadIterateMetrics.start()
 
     threadIterateInfos = threading.Thread(target=iterateInfos)
     threadIterateInfos.start()
+
+    while True:
+        time.sleep(10)
