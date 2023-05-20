@@ -1,4 +1,3 @@
-# This is a sample Python script.
 import json
 import os
 import sys
@@ -102,15 +101,15 @@ def start():
                 jsonConfig = json.load(f)
         else:
             print("Config-File does not exist in " + application_path)
-            exit(123)
+            sys.exit(123)
 
     # check if token is in jsonConfig
     if 'apiUrl' not in jsonConfig:
         print("apiUrl not supplied in config.")
-        exit(4566)
+        sys.exit(4566)
     if 'token' not in jsonConfig:
         print("token not supplied in config.")
-        exit(789)
+        sys.exit(789)
 
     threadIterateMetrics = threading.Thread(target=iterateMetrics)
     threadIterateMetrics.start()
