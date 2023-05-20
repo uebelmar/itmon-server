@@ -1,14 +1,12 @@
-# myscript.spec
-
 # -*- mode: python ; coding: utf-8 -*-
 
 block_cipher = None
 
-a = Analysis(['main.py'],
-              pathex=['C:/Users/admin/OneDrive/Documents/GitHub/itmon-server'],
+a = Analysis(['linux.py'],
+             pathex=['/var/www/html/itmon-server'],
              binaries=[],
              datas=[],
-             hiddenimports=['requests','netifaces', 'psutil','cpuinfo'],
+             hiddenimports=[],
              hookspath=[],
              runtime_hooks=[],
              excludes=[],
@@ -25,7 +23,7 @@ exe = EXE(pyz,
           a.datas,
           [],
           name='server-watchdog-agent',
-          debug=True,
+          debug=False,
           bootloader_ignore_signals=False,
           strip=False,
           upx=True,
